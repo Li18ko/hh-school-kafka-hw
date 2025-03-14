@@ -18,7 +18,13 @@ public class KafkaProducer {
   }
 
   public void send(String topic, String payload) {
-    kafkaTemplate.send(topic, payload);
+    if (random.nextInt(100) < 10) {
+      throw new RuntimeException();
+    }
     LOGGER.info("send to kafka, topic {}, payload {}", topic, payload);
+    kafkaTemplate.send(topic, payload);
+    if (random.nextInt(100) < 2) {
+      throw new RuntimeException();
+    }
   }
 }
